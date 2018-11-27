@@ -76,5 +76,28 @@ other.
 - foreign key
     - one or more columns that can be used together to identify a single row in
         another table
-        
+
 <img alt="ER diagram with keys" src="../assets/week-1/er-diagram-keys.jpg" width="50%" />
+
+### ER diagram notations
+
+#### Chen notation
+
+Uses `1` and `M` to signify relationships on entities:
+
+<img alt="chen notation" src="../assets/week-1/er-diagram-notation-chen.jpg" width="50%" />
+
+#### Crow's foot notation
+
+- `--||-`: 1
+- `--|ᗕ`:  many
+
+<img alt="crow's foot notation" src="../assets/week-1/er-diagram-notation-crows-foot.jpg" width="50%" />
+
+#### UML class diagram notation
+
+- 1.1: 1
+- 1.*: many
+
+<img alt="uml notation" src="../assets/week-1/er-diagram-notation-uml.jpg" width="50%" />
+
