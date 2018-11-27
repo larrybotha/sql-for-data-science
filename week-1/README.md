@@ -55,12 +55,16 @@ Front-loading this work saves time later.
 ER (entity-relationship) diagrams are composed of entity types, and specify
 relationships between those entities.
 
+![Simple ER diagram](../assets/week-1/er-diagram-simple.jpg)
+
 They have the following functions:
 
 - show entity relationships
 - show business processes
 - are visual aids
 - show links through primary keys
+
+![Detailed ER diagram](../assets/week-1/er-diagram-detailed.jpg)
 
 ### Primary and foreign keys
 
@@ -72,3 +76,5 @@ other.
 - foreign key
     - one or more columns that can be used together to identify a single row in
         another table
+        
+![ER diagram with keys](../assets/week-1/er-diagram-keys.jpg)
