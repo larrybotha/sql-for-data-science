@@ -1,4 +1,4 @@
-# Week 1
+# Week 1 - Getting Started and Selecting & Retrieving Data with SQL
 
 SQL stands for Structured Query Language.
 
