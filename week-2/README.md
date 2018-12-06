@@ -413,7 +413,9 @@ GROUP BY region;
 
 - `WHERE` filters on rows, not groups
 - `WHERE` then needs to be defined before `GROUP BY`
+- rows eliminated by a `WHERE` clause will not be included in a group
 - `HAVING` is the equivalent to `WHERE`, but for groups
+- `HAVING` must come after `ORDER BY`
 
 ```sql
 # count the number of orders, by customer, where there are 2 or more orders for
@@ -425,3 +427,4 @@ FROM orders
 GROUP BY customer_id
 HAVING COUNT(*) >= 2;
 ```
+
