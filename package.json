@@ -1,0 +1,28 @@
+{
+  "name": "sql-for-data-science",
+  "version": "1.0.0",
+  "description": "Notes, annotations, and exercises from Coursera's SQL for Data Science course: https://www.coursera.org/learn/sql-for-data-science",
+  "main": "index.js",
+  "dependencies": {
+    "doctoc": "1.4.0",
+    "husky": "1.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/larrybotha/sql-for-data-science.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/larrybotha/sql-for-data-science/issues"
+  },
+  "homepage": "https://github.com/larrybotha/sql-for-data-science#readme",
+  "husky": {
+    "hooks": {
+      "pre-commit": "doctoc . --github"
+    }
+  }
+}
