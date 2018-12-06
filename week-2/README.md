@@ -30,6 +30,8 @@
 - [Grouping Data with SQL](#grouping-data-with-sql)
   - [Using `GROUP BY`](#using-group-by)
   - [`WHERE`, `HAVING`, and `GROUP BY`](#where-having-and-group-by)
+  - [`GROUP BY` and `ORDER BY`](#group-by-and-order-by)
+- [Putting it all together](#putting-it-all-together)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -428,3 +430,45 @@ GROUP BY customer_id
 HAVING COUNT(*) >= 2;
 ```
 
+### `GROUP BY` and `ORDER BY`
+
+As with other queries, `GROUP BY` will not sort results. It's good practice to
+use `ORDER BY` with `GROUP BY` to organise the results of queries.
+
+```sql
+SELECT
+  supplier_id
+  ,COUNT(*) AS num_products
+FROM products
+WHERE price >= 4
+GROUP BY supplier_id
+HAVING COUNT(*) >= 2
+ORDER BY ASC name;
+```
+
+## Putting it all together
+
+[video](Putting it All Together)
+
+Filtering is useful because:
+
+- you're narrowing down your results
+- it increases query and application performance
+- makes understanding data easier by:
+    - finding specific values
+    - finding a range of values
+    - finding blank values
+
+Order of key SQL clauses:
+
+```sql
+# always required
+SELECT [columns]
+# required if selecting table from a table
+FROM [table]
+WHERE [criteria]
+# required if calculating aggregates by a group
+GROUP BY [columns]
+HAVING [criteria]
+ORDER BY [ASC|DESC] [columns];
+```
