@@ -181,3 +181,247 @@ been outlined here.
 - statements with wildcards at the end of patterns take longer to run than
     patterns with wildcards at the beginning
 - placement of wildcads is imporant
+
+## Sorting with `ORDER BY`
+
+[video](https://www.coursera.org/learn/sql-for-data-science/lecture/OIQ7a/sorting-with-order-by)
+
+Using `SELECT` will return data in the same order that it was captured in the
+database.
+
+Furthermore, the order of data can change when it is updated or deleted.
+
+Without specifying the order of data, its order cannot be assumed.
+
+`ORDER BY`:
+
+- takes the name of one or more columns
+- columns are delimited by commas
+- data can be sorted by columns that are not retrieved in the `SELECT` statement
+- must always be the last statement in a `SELECT` statement
+
+```sql
+SELECT *
+FROM my_table
+WHERE [criteria]
+ORDER BY col1, col2;
+```
+
+### Sort direction
+
+One can specify the direction to sort data:
+
+- `DESC` - descending
+- `ASC` - ascending
+
+The direction keywords apply only to the column name they precede.
+
+```sql
+...
+ORDER BY DESC name;
+```
+
+### Sorting by columns position
+
+Though not readable, and prone to error, one can sort by column number:
+
+```sql
+...
+ORDER BY 2, 3;
+```
+
+Columns numbers are 1-indexed.
+
+## Math operations
+
+[video](https://www.coursera.org/learn/sql-for-data-science/lecture/DYtOe/math-operations)
+
+Available operators:
+
+- `+`
+- `-`
+- `*`
+- `/`
+
+```sql
+SELECT
+  id
+  ,unit_price
+  ,unit_sold
+  ,unit_price * units_sold AS total_sales
+FROM my_table;
+```
+
+```sql
+SELECT
+  id
+  ,unit_price
+  ,units_sold
+  ,unit_weight
+  ,(unit_price * units_sold)/unit_weight AS weight_ratio
+FROM my_table;
+```
+
+## Aggregate Functions
+
+[video](https://www.coursera.org/learn/sql-for-data-science/lecture/O8yes/aggregate-functions)
+
+Aggregate functios allow one to summarise data.
+
+The aggregate functions available are:
+
+- `AVG`
+- `COUNT`
+- `MIN`
+- `MAX`
+- `SUM`
+
+`DISTINCT` may be used with some of the aggregate functions to include only
+values that are distinct.
+
+Aggregate functions are useful for:
+
+- summarising data
+- finding the highest and lowest values
+- finding the total number of rows
+- finding averages
+
+Aggregate functions are syntactic sugar for the existing math operators.
+
+### `AVG` function
+
+Rows containing NULL values are ignore by the `AVG` function.
+
+```sql
+SELECT
+  AVG(price) AS avg_price
+FROM products;
+```
+
+### `COUNT` function
+
+`COUNT` can be used to count rows, including those containing NULL values, or
+individual columns, excluding those containing NULL values.
+
+```sql
+# count all rows, including those with NULL values
+SELECT COUNT(*) AS customers
+FROM customers;
+```
+
+```sql
+# count customers that have emails
+SELECT COUNT(email) AS customers_with_email
+FROM customers;
+```
+
+### `MAX` and `MIN` functions
+
+NULL values are ignored by both `MAX` and `MIN`.
+
+```sql
+SELECT MAX(price) AS max_price
+FROM products;
+```
+
+```sql
+SELECT MIN(size) AS smallest_size
+FROM shoes;
+```
+
+```sql
+# get a range of shoe sizes
+SELECT
+  MAX(size) AS shoe_size_upper
+  , MIN(size) as show_size_lower
+FROM shoes;
+```
+
+### `SUM` function
+
+```sql
+# simple query
+SELECT SUM(price) as total_price
+FROM products;
+```
+
+```sql
+# less simple query
+SELECT SUM(price * units_sold) total_sales
+FROM products;
+```
+
+### `DISTINCT`
+
+If `DISTINCT` is not defined, `ALL` is assumed.
+
+`DISTINCT` can't be used in conjunction with `COUNT(*)`.
+
+`DISTINCt` doesn't make sense to use with `MIN` or `MAX` since they only return
+a single value.
+
+```sql
+SELECT COUNT(DISTINCT price) AS distinct_prices
+FROM products;
+```
+
+## Grouping Data with SQL
+
+[video](https://www.coursera.org/learn/sql-for-data-science/lecture/LWL8X/grouping-data-with-sql)
+
+Grouping data allows one to summarise subsets of data.
+
+Data is grouped using two statements:
+
+- `GROUP BY`
+- `HAVING`
+
+Using these statements we can aggregate data by a particular value, e.g.
+grouping shoes by shoe size.
+
+When simply aggregating total number of customers in the aggregating module, we
+didn't need to do anything specific to get a result.
+
+If, however, another column is specified in the `SELECT` statement, we'd need to
+indicate how we'd like the number of customers to be counted. This is where
+`GROUP BY` is useful:
+
+```sql
+# this will error - we need to specify _how_ to count customer ids when queried
+with region
+SELECT
+  region
+  ,COUNT(customer_id) AS total_customers
+FROM customers;
+
+# so we indicate that we want to count customers grouped by region
+SELECT
+  region
+  ,COUNT(customer_id) AS total_customers
+FROM customers
+GROUP BY region;
+```
+
+### Using `GROUP BY`
+
+- can contain multiple columns, delimited by commas
+- every column in the `SELECT` statement must be present in a `GROUP BY` clause,
+    with the exception of the aggregated values
+- NULLs can be grouped together if your `GROUP BY` column contains NULLs
+
+### `WHERE`, `HAVING`, and `GROUP BY`
+
+- `WHERE` filters on rows, not groups
+- `WHERE` then needs to be defined before `GROUP BY`
+- `HAVING` is the equivalent to `WHERE`, but for groups
+
+```sql
+# count the number of orders, by customer, where there are 2 or more orders for
+# each customer
+SELECT
+  customer_id
+  .COUNT(*) AS total_orders
+FROM orders
+GROUP BY customer_id
+HAVING COUNT(*) >= 2;
+```
