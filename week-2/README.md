@@ -443,7 +443,7 @@ FROM products
 WHERE price >= 4
 GROUP BY supplier_id
 HAVING COUNT(*) >= 2
-ORDER BY ASC name;
+ORDER BY name ASC;
 ```
 
 ## Putting it all together
@@ -470,5 +470,5 @@ WHERE [criteria]
 # required if calculating aggregates by a group
 GROUP BY [columns]
 HAVING [criteria]
-ORDER BY [ASC|DESC] [columns];
+ORDER BY [columns [ASC|DESC]];
 ```
