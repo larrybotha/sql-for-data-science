@@ -29,6 +29,12 @@
   - [Aliases](#aliases)
     - [Example](#example)
   - [Self joins](#self-joins)
+- [Advanced Joins: Left, Right, and Full Outer Joins](#advanced-joins-left-right-and-full-outer-joins)
+  - [Left join](#left-join)
+  - [Right join](#right-join)
+  - [Full outer join](#full-outer-join)
+- [Unions](#unions)
+  - [Union syntax](#union-syntax)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -359,4 +365,109 @@ FROM Customers AS a, Customers as B
 WHERE a.customer_id != b.customer_id
   AND a.city = b.city
 ORDER BY a.city;
+```
+
+## Advanced Joins: Left, Right, and Full Outer Joins
+
+[video](https://www.coursera.org/learn/sql-for-data-science/lecture/993cg/advanced-joins-left-right-and-full-outer-joins)
+
+SQLite only does `LEFT` joins. Other DBMSs use all joins.
+
+### Left join
+
+Returns all records from the left table, and all matching records from the right
+table.
+
+If there is no match on the right, the result is NULL.
+
+<img alt="left join" src="../assets/week-3/left-join.jpg" width="50%" />
+
+e.g. an `INNER JOIN` on customers and orders would result in a table with only
+customers who placed orders and their orders. A `LEFT JOIN` would result in a
+table with all customers, even those without orders, and all the orders, too.
+
+```sql
+-- get all customers, as well as orders for those customers who have orders
+SELECT
+  C.customer_name
+  ,O.order_id
+FROM Customers AS C
+LEFT JOIN Orders AS O ON C.customer_id = O.customer_id
+ORDER BY C.customer_name;
+```
+
+### Right join
+
+A `RIGHT JOIN` is similar to a `LEFT JOIN`, except that all records from the
+right table are returned, with only matching records in the left table.
+
+<img alt="right join" src="../assets/week-3/right-join.jpg" width="50%" />
+
+The result from the left table will be NULL if there is no match.
+
+```sql
+-- get all employees, as well as orders assigned to employees that have orders
+-- assigned to them
+SELECT
+  O.order_id
+  ,E.last_name
+  ,E.first_name
+FROM Orders as O
+RIGHT JOIN Employees as E ON O.employee_id = E.employee_id
+ORDER BY E.employee_id;
+```
+
+Right joins can be turned into left joins by reversing the order of the tables.
+The same applies to left joins being made into right joins.
+
+### Full outer join
+
+A full outer join will return all results from both tables.
+
+<img alt="full outer join" src="../assets/week-3/full-outer-join.jpg" width="50%" />
+
+```sql
+SELECT
+  C.customer_name
+  ,O.order_id
+FROM Customers AS C
+FULL OUTER JOIN Orders AS O ON C.customer_id = O.customer_id
+ORDER BY C.customer_name;
+```
+
+## Unions
+
+[video](https://www.coursera.org/learn/sql-for-data-science/lecture/KxGPs/unions)
+
+A `UNION` is used to combine the result-set of multiple `SELECT` statements.
+
+To create a union:
+
+- each `SELECT` statement must have the same number of columns
+- the columns in each `SELECT` statement must be in the same order
+- the matching columns must have similar data types
+
+### Union syntax
+
+```sql
+SELECT [column_names] FROM table1
+UNION
+SELECT [columns_names] FROM table2
+```
+
+e.g. getting records from `Customers` and `Suppliers` when evaluating a specific
+country:
+
+```sql
+SELECT city, country
+FROM Customers
+WHERE country = 'Germany'
+
+UNION
+
+SELECT city, country
+FROM Suppliers
+WHERE country = 'Germany'
+
+ORDER BY city
 ```
