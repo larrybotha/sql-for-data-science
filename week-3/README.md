@@ -35,6 +35,11 @@
   - [Full outer join](#full-outer-join)
 - [Unions](#unions)
   - [Union syntax](#union-syntax)
+- [Summary](#summary)
+  - [Best practices using joins](#best-practices-using-joins)
+  - [Slowly do](#slowly-do)
+  - [Joins and database performance](#joins-and-database-performance)
+  - [Join syntax](#join-syntax)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -471,3 +476,37 @@ WHERE country = 'Germany'
 
 ORDER BY city
 ```
+
+## Summary
+
+[video](https://www.coursera.org/learn/sql-for-data-science/lecture/xEejU/summary)
+
+### Best practices using joins
+
+- it's easy to get results - it's important to confirm that they are the
+    correct results
+- validate the number of records returned against what you expect
+- is the result logical given the kind of join performed?
+- check for duplicates
+- check the number of records each time you make a new join
+
+### Slowly do
+
+- think about what you are trying to do before doing it
+- map how you are joining tables
+- consider what your query is trying to do
+
+### Joins and database performance
+
+- the more joins, the slower the database will perform
+- don't grab unnccessary data if you don't need to
+- be strategic
+- take only what you need
+
+### Join syntax
+
+Check the join syntax for the RDMS you are using.
+
+SQLite doesn't make use of `RIGHT` joins.
+
+<img alt="SQL join diagrams" src="../assets/week-3/join-diagrams.jpg" width="50%" />
