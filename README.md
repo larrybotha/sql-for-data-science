@@ -7,4 +7,5 @@ Notes, annotations, and exercises from Coursera's SQL for Data Science course: h
 
 1. [Week 1 - Getting Started and Selecting & Retrieving Data with SQL](./week-1)
 2. [Week 2 - Filtering, Sorting, and Calculating Data with SQL](./week-2)
-2. [Week 3 - Subqueries and Joins in SQL](./week-3)
+3. [Week 3 - Subqueries and Joins in SQL](./week-3)
+4. [Week 4 - Modifying and Analyzing Data with SQL](./week-4)
