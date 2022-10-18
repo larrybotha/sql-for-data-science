@@ -21,3 +21,4 @@ Notes, annotations, and exercises from Coursera's SQL for Data Science course: h
 ## Resources
 
 - [SQLite Tutorial](http://www.sqlitetutorial.net/)
+- [SQL Tutorial](https://www.scaler.com/topics/sql/)
